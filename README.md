@@ -62,6 +62,13 @@ Use local smtp debug server instead of actually sending emails
     git config --global user.name "Kenley Cheung"
     git config --global user.email "winnt253@hotmail.com"
 
+#### gitignore
+Copy .gitignore into ~/.gitignore
+    
+    git config --global core.excludesfile ~/.gitignore
+
+Create .gitignore in repository root and childrens as necessary
+
 #### setup ssh pair
     ssh-keygen
     cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
@@ -69,4 +76,4 @@ Use local smtp debug server instead of actually sending emails
 Configure on github/bitbucket
 
 ## TODO
-pre-commit hooks to copy ~/.vimrc
+pre-commit hooks to copy ~/.vimrc and ~/.gitignore
