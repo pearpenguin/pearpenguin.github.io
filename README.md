@@ -1,4 +1,4 @@
 ## Random bits and pieces
 
-# .vimrc
+### .vimrc
 Place in ~/.vimrc
