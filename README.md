@@ -17,7 +17,7 @@ screen:
 
     sudo apt-get install screen
 
-python-dev libs for various installs:
+python-dev libs for various installs (e.g. mercurial):
     
     sudo apt-get install python-dev
 
@@ -57,7 +57,7 @@ Deploy projects: `./appcfg.py update /path/to/project`
 
 #### djangoappengine
 It is needed to provide GAE backends for django to interface with
-
+    
     git clone https://github.com/GoogleCloudPlatform/appengine-django-skeleton.git <project_name>
     cd appengine-django-skeleton
     sudo pip install mercurial
