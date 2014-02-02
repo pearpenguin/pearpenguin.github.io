@@ -40,7 +40,8 @@ rm get-pip.py # cleanup
 # setup Google App Engine SDK
 #wget http://googleappengine.googlecode.com/files/google_appengine_1.8.9.zip
 #unzip google_app_engine_1.8.9.zip
-#export PATH=\$PATH:/$PWD/google_appengine # Add the SDK to PATH
+# Add the SDK to PATH
+#echo "export PATH=\$PATH:$PWD/google_appengine" >> $home_vagrant/.bashrc
 
 
 
