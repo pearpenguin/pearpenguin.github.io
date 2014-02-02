@@ -13,6 +13,10 @@ vim (proper):
     
     sudo apt-get install vim
 
+screen:
+
+    sudo apt-get install screen
+
 ### .vimrc
 Copy to `~/.vimrc`
 
@@ -66,6 +70,7 @@ Use local smtp debug server instead of actually sending emails
     git config --global user.name "Kenley Cheung"
     git config --global user.email "winnt253@hotmail.com"
     git config --global core.editor /usr/bin/vi
+    git config --global push.default simple
 
 #### gitignore
 Copy .gitignore into ~/.gitignore
