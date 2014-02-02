@@ -9,6 +9,10 @@ curl:
 
     sudo apt-get install curl
 
+vim (proper):
+    
+    sudo apt-get install vim
+
 ### .vimrc
 Copy to `~/.vimrc`
 
