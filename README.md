@@ -17,6 +17,10 @@ screen:
 
     sudo apt-get install screen
 
+python-dev libs for various installs:
+    
+    sudo apt-get install python-dev
+
 ### .vimrc
 Copy to `~/.vimrc`
 
@@ -56,6 +60,7 @@ It is needed to provide GAE backends for django to interface with
 
     git clone https://github.com/GoogleCloudPlatform/appengine-django-skeleton.git <project_name>
     cd appengine-django-skeleton
+    sudo pip install mercurial
     ./build.sh
 
 Don't run dev\_appserver directly, use djangoappengine's manage.py
@@ -64,6 +69,10 @@ Use local smtp debug server instead of actually sending emails
 
     ./manage.py runserver 0.0.0.0:8000 --smtp_host=localhost --smtp_port=1025
     python -m smtpd -n -c DebuggingServer localhost:1025
+
+Use djangoappengine's manage.py to deploy instead of appcfg
+
+    ./manage.py deploy
 
 ### git
 #### config
