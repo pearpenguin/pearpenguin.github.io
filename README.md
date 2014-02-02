@@ -24,8 +24,8 @@ Generate .tags file in git project dir: `ctags -R -f .tags`
 No separate pip packages for python2/3. Manually use get-pip.py
 
     wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
-    python2 get-pip.py
-    python3 get-pip.py
+    sudo python2 get-pip.py
+    sudo python3 get-pip.py
 
 Some wheels may not work. e.g. When installing mako on python3. Use `pip install --no-use-wheel mako`.
 
@@ -61,6 +61,7 @@ Use local smtp debug server instead of actually sending emails
 #### config
     git config --global user.name "Kenley Cheung"
     git config --global user.email "winnt253@hotmail.com"
+    git config --global core.editor /usr/bin/vi
 
 #### gitignore
 Copy .gitignore into ~/.gitignore
