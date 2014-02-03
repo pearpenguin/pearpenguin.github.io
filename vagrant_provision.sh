@@ -21,6 +21,7 @@ apt-get -y install npm # nodejs + npm
 git clone https://github.com/pearpenguin/pearpenguin.github.io.git config
 cp config/.vimrc $home_vagrant/.vimrc
 cp config/.gitignore $home_vagrant/.gitignore
+rm -rf config # cleanup
 
 # configure git
 git config --global user.name "Kenley Cheung"
@@ -37,6 +38,9 @@ wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 python2 get-pip.py
 python3 get-pip.py
 rm get-pip.py # cleanup
+
+# get Python packages
+pip install beautifulsoup4
 
 # setup Google App Engine SDK
 #wget http://googleappengine.googlecode.com/files/google_appengine_1.8.9.zip
