@@ -15,6 +15,7 @@ apt-get -y install python-dev # for pip install mercurial
 apt-get -y install git
 apt-get -y install exuberant-ctags
 apt-get -y install unzip
+apt-get -y install npm # nodejs + npm
 
 # get core config files
 git clone https://github.com/pearpenguin/pearpenguin.github.io.git config
