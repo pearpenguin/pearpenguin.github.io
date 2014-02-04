@@ -70,9 +70,11 @@ Use local smtp debug server instead of actually sending emails
     ./manage.py runserver 0.0.0.0:8000 --smtp_host=localhost --smtp_port=1025
     python -m smtpd -n -c DebuggingServer localhost:1025
 
-Use djangoappengine's manage.py to deploy instead of appcfg
+Use djangoappengine's manage.py to deploy instead of appcfg, 
 
     ./manage.py deploy
+
+`manage.py remote` to execute commands on the production App Engine 
 
 ### git
 #### config
