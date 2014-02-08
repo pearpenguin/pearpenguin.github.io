@@ -66,9 +66,10 @@ It is needed to provide GAE backends for django to interface with
 Don't run dev\_appserver directly, use djangoappengine's manage.py
 Server binds to 127.0.0.1 by default, must bind to 0.0.0.0 to allow other hosts on network to access (including host of VM). 
 Use local smtp debug server instead of actually sending emails
+Add `--log_level=debug` to see logging.debug() messages
 
     ./manage.py runserver 0.0.0.0:8000 --smtp_host=localhost --smtp_port=1025
-    python -m smtpd -n -c DebuggingServer localhost:1025
+    python -m smtpd -n -c DebuggingServer localhost:1025 
 
 Use djangoappengine's manage.py to deploy instead of appcfg, 
 
