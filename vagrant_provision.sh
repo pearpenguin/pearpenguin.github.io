@@ -3,11 +3,15 @@
 # Provisioning script for Ubuntu boxes
 # Script is run as privileged user so no need to sudo
 # Remember to use non-interactive commands or pre-answer questions
+# (use debconf-set-selections?)
 
 # script is run by ssh user although cwd seems to be /home/vagrant
 home_vagrant=/home/vagrant
 
-# some may not be needed for different guest OSes
+# update sources
+apt-get update
+
+# get packages (some may not be needed for different guest OSes)
 apt-get -y install curl
 apt-get -y install vim
 apt-get -y install screen
@@ -16,9 +20,13 @@ apt-get -y install git
 apt-get -y install exuberant-ctags
 apt-get -y install unzip
 apt-get -y install npm # nodejs + npm
-apt-get -y install php5 # apache2 + php5 + extensions
+# php + modules
+apt-get -y install php5 # apache2 + php5
 apt-get -y install php5-json # needed for Composer
 apt-get -y install php5-mcrypt # needed for Laravel
+# databases
+#apt-get -y install mysql-server # need to pre-answer set passwords
+apt-get -y install sqlite3
 
 ## php stuff
 # install Composer
@@ -27,6 +35,14 @@ mv composer.phar /usr/local/bin/composer
 # mcrypt extension not enabled for CLI by default if using apt-get,
 # Laravel installer checks mcrypt dependency through CLI
 ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/cli/conf.d/mcrypt.ini
+# Start blank projects for various frameworks
+# Wordpress
+wget http://wordpress.org/latest.tar.gz
+tar -xzvf latest.tar.gz -C /vagrant
+# Laravel
+# Symfony
+
+# TODO: apache conf (virtual hosts for php stuffs)
 
 
 # get core config files

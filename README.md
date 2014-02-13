@@ -38,6 +38,12 @@ Start a Laravel or Symfony project
     composer create-project laravel/laravel --prefer-dist
     
 See vagrant provision file for more details on Composer and PHP dependencies
+Symfony requires DB parameters to be entered
+
+### Wordpress
+Provisioner downloads, unzips, and sets up DB.
+Must manually browse to wp-admin/install.php to finish setup
+All DB params are "wordpress" as in `wp-setup-db.sql`
     
 ### python
 #### pip on Ubuntu 12.04
@@ -97,7 +103,7 @@ Copy .gitignore into ~/.gitignore
     
     git config --global core.excludesfile ~/.gitignore
 
-Create .gitignore in repository root and childrens as necessary
+Create `.gitignore` in repository root and childrens as necessary
 
 #### setup ssh pair
     ssh-keygen
