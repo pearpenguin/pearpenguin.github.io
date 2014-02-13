@@ -30,6 +30,14 @@ To install: `apt-get install exuberant-ctags`.
 Generate .tags file in git project dir: `ctags -R -f .tags`
 
 .vimrc setting: `set tags=./.tags;`
+
+### Composer
+Start a Laravel or Symfony project
+
+    composer create-project symfony/framework-standard-edition /path 2.4.*
+    composer create-project laravel/laravel --prefer-dist
+    
+See vagrant provision file for more details on Composer and PHP dependencies
     
 ### python
 #### pip on Ubuntu 12.04
