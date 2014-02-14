@@ -31,20 +31,30 @@ Generate .tags file in git project dir: `ctags -R -f .tags`
 
 .vimrc setting: `set tags=./.tags;`
 
-### Composer
+### PHP
+Set `date.timezone` in `php.ini`
+
+#### Composer/Laravel/Symfony
 Start a Laravel or Symfony project
 
     composer create-project symfony/framework-standard-edition /path 2.4.*
     composer create-project laravel/laravel /path --prefer-dist
     
 See vagrant provision file for more details on Composer and PHP dependencies
-Symfony requires DB parameters to be entered
 
-### Wordpress
+Symfony requires DB parameters to be entered.
+Point browser to `config.php`, but first modify the file to allow access from host IP
+
+
+#### Wordpress
 Provisioner downloads, unzips, and sets up DB.
 Must manually browse to wp-admin/install.php to finish setup
 All DB params are "wordpress" as in `wp-setup-db.sql`
     
+### Apache2
+See apache2 configuration in `etc/apache2/sites-available/all.conf`
+Access granted to `/vagrant`, all sites are enabled by default
+
 ### python
 #### pip on Ubuntu 12.04
 No separate pip packages for python2/3. Manually use get-pip.py
