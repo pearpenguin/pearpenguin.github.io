@@ -7,6 +7,11 @@
 
 # script is run by ssh user although cwd seems to be /home/vagrant
 home_vagrant=/home/vagrant
+# directory to checkout pearpenguin.github.io (contains configs + scripts)
+pearpenguin=config
+
+# Arbitrary configs
+db_pass=root
 
 # update sources
 apt-get update
@@ -20,35 +25,22 @@ apt-get -y install git
 apt-get -y install exuberant-ctags
 apt-get -y install unzip
 apt-get -y install npm # nodejs + npm
-# php + modules
+# php5 + modules
 apt-get -y install php5 # apache2 + php5
 apt-get -y install php5-json # needed for Composer
 apt-get -y install php5-mcrypt # needed for Laravel
 # databases
-#apt-get -y install mysql-server # need to pre-answer set passwords
+# pre-answer set password questions
+echo mysql-server mysql-server/root_password password $dbpass | debconf-set-selection
+echo mysql-server mysql-server/root_password_again password $dbpass | debconf-set-selection
+apt-get -y install mysql-server
+apt-get -y install php5-mysql # mysql module for php5
 apt-get -y install sqlite3
 
-## php stuff
-# install Composer
-curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
-# mcrypt extension not enabled for CLI by default if using apt-get,
-# Laravel installer checks mcrypt dependency through CLI
-ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/cli/conf.d/mcrypt.ini
-# Start blank projects for various frameworks
-# Wordpress
-wget http://wordpress.org/latest.tar.gz
-tar -xzvf latest.tar.gz -C /vagrant
-# Laravel
-# Symfony
-
-# TODO: apache conf (virtual hosts for php stuffs)
-
-
 # get core config files
-git clone https://github.com/pearpenguin/pearpenguin.github.io.git config
-cp config/.vimrc $home_vagrant/.vimrc
-cp config/.gitignore $home_vagrant/.gitignore
+git clone https://github.com/pearpenguin/pearpenguin.github.io.git $pearpenguin
+cp $pearpenguin/.vimrc $home_vagrant/.vimrc
+cp $pearpenguin/.gitignore $home_vagrant/.gitignore
 
 # configure git
 git config --global user.name "Kenley Cheung"
@@ -72,6 +64,27 @@ rm get-pip.py # cleanup
 # Add the SDK to PATH
 #echo "export PATH=\$PATH:/$PWD/google_appengine" >> $home_vagrant/.bashrc
 
+## php stuff
+# install Composer
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+# mcrypt extension not enabled for CLI by default if using apt-get,
+# Laravel installer checks mcrypt dependency through CLI
+ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/cli/conf.d/mcrypt.ini
+# Start blank projects for various frameworks
+# Wordpress
+wget http://wordpress.org/latest.tar.gz
+tar -xzvf latest.tar.gz -C /vagrant
+mysql -u root -p$db_pass < $pearpenguin/wp-setup-db.sql
+# Must point to wp-admin/install.php to finish setup.
+# dbname=wordpress, user=wordpress, password=root, host=localhost
+# Laravel
+composer create-project laravel/laravel laravel-test --prefer-dist
+# Symfony
+composer create-project symfony/framework-standard-edition symfony-test
+# TODO: Symfony also asks for db config, find a way to pre-answer
+
+# TODO: apache conf (virtual hosts for php stuffs)
 
 
 

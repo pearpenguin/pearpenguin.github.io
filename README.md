@@ -35,7 +35,7 @@ Generate .tags file in git project dir: `ctags -R -f .tags`
 Start a Laravel or Symfony project
 
     composer create-project symfony/framework-standard-edition /path 2.4.*
-    composer create-project laravel/laravel --prefer-dist
+    composer create-project laravel/laravel /path --prefer-dist
     
 See vagrant provision file for more details on Composer and PHP dependencies
 Symfony requires DB parameters to be entered
