@@ -27,8 +27,8 @@ apt-get -y install unzip
 apt-get -y install npm # nodejs + npm
 # php5 + modules
 apt-get -y install php5 # apache2 + php5
-apt-get -y install php5-json # needed for Composer
-apt-get -y install php5-mcrypt # needed for Laravel
+apt-get -y install php5-json php5-mcrypt php5-curl php5-gd php5-intl
+
 # databases
 # pre-answer set password questions
 echo mysql-server mysql-server/root_password password $dbpass | debconf-set-selection
@@ -65,26 +65,49 @@ rm get-pip.py # cleanup
 #echo "export PATH=\$PATH:/$PWD/google_appengine" >> $home_vagrant/.bashrc
 
 ## php stuff
+# config php settings (max upload, max size, other limits)
+##
 # install Composer
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
-# mcrypt extension not enabled for CLI by default if using apt-get,
-# Laravel installer checks mcrypt dependency through CLI
+# mcrypt extension ini not included, buggy
 ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/cli/conf.d/mcrypt.ini
+ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/apache2/conf.d/mcrypt.ini
 # Start blank projects for various frameworks
+# Setup databases
+mysql -u root -p$db_pass < $pearpenguin/setup-db.sql
 # Wordpress
 wget http://wordpress.org/latest.tar.gz
 tar -xzvf latest.tar.gz -C /vagrant
-mysql -u root -p$db_pass < $pearpenguin/wp-setup-db.sql
 # Must point to wp-admin/install.php to finish setup.
 # dbname=wordpress, user=wordpress, password=root, host=localhost
 # Laravel
 composer create-project laravel/laravel laravel-test --prefer-dist
-# Symfony
-composer create-project symfony/framework-standard-edition symfony-test
+# Symfony (check config with web/config.php)
+#composer create-project symfony/framework-standard-edition symfony-test
 # TODO: Symfony also asks for db config, find a way to pre-answer
+# Concrete5
+concrete5=concrete5.6.2.1
+wget http://www.concrete5.org/download_file/-/view/64359/8497/ #5.6.2.1
+unzip ${concrete5}.zip -d /vagrant
+mv /vagrant/$concrete5 /vagrant/concrete5
+# Point web browser to concrete5 to install
+# Drupal
+drupal=drupal-7.26
+wget http://ftp.drupal.org/files/projects/${drupal}.tar.gz
+tar -xvzf ${drupal}.tar.gz -C /vagrant
+mv /vagrant/$drupal /vagrant/drupal
+cd /vagrant/drupal/sites/default
+cp default.settings.php settings.php # make default drupal settings file
 
-# TODO: apache conf (virtual hosts for php stuffs)
 
+# Fetch apache2 conf from pearpenguin
+cp $pearpenguin/etc/apache2/sites-available/all.conf /etc/apache2/sites-available/all.conf
+# Enable all sites
+cd /etc/apache2/sites-enabled
+ln -s ../sites-available/all.conf all.conf
+# Create log dirs
+cd /var/log/apache2
+mkdir wordpress laravel symfony concrete5 drupal
 
 

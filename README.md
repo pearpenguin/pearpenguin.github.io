@@ -32,7 +32,7 @@ Generate .tags file in git project dir: `ctags -R -f .tags`
 .vimrc setting: `set tags=./.tags;`
 
 ### PHP
-Set `date.timezone` in `php.ini`
+Set `date.timezone` in `php.ini` (e.g. Pacific/Auckland)
 
 #### Composer/Laravel/Symfony
 Start a Laravel or Symfony project
@@ -43,17 +43,25 @@ Start a Laravel or Symfony project
 See vagrant provision file for more details on Composer and PHP dependencies
 
 Symfony requires DB parameters to be entered.
-Point browser to `config.php`, but first modify the file to allow access from host IP
-
+Point browser to `config.php`, but first modify the file to allow access from host IP. Same applies for `app_dev.php`
+Git ignore `vendor` directory
 
 #### Wordpress
 Provisioner downloads, unzips, and sets up DB.
 Must manually browse to wp-admin/install.php to finish setup
 All DB params are "wordpress" as in `wp-setup-db.sql`
-    
+
+#### Concrete5
+Browse to site to setup.
+Admin credentials: admin/concrete5
+
+#### Drupal
+Same deal with drupal
+
 ### Apache2
 See apache2 configuration in `etc/apache2/sites-available/all.conf`
 Access granted to `/vagrant`, all sites are enabled by default
+Each framework/CMS uses a different port, starting from 8001
 
 ### python
 #### pip on Ubuntu 12.04
