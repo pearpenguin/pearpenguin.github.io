@@ -6,9 +6,9 @@
 # (use debconf-set-selections?)
 
 # script is run by ssh user although cwd seems to be /home/vagrant
-home_vagrant=/home/vagrant
+home_dir=/home/vagrant
 # directory to checkout pearpenguin.github.io (contains configs + scripts)
-pearpenguin=config
+pearpenguin=/vagrant/pearpenguin.github.io
 
 # Arbitrary configs
 db_pass=root
@@ -35,22 +35,22 @@ echo mysql-server mysql-server/root_password password $dbpass | debconf-set-sele
 echo mysql-server mysql-server/root_password_again password $dbpass | debconf-set-selection
 apt-get -y install mysql-server
 apt-get -y install php5-mysql # mysql module for php5
-apt-get -y install sqlite3
+#apt-get -y install sqlite3
 
 # get core config files
 git clone https://github.com/pearpenguin/pearpenguin.github.io.git $pearpenguin
-cp $pearpenguin/.vimrc $home_vagrant/.vimrc
-cp $pearpenguin/.gitignore $home_vagrant/.gitignore
+cp $pearpenguin/.vimrc $home_dir/.vimrc
+cp $pearpenguin/.gitignore $home_dir/.gitignore
 
 # configure git
 git config --global user.name "Kenley Cheung"
 git config --global user.email "winnt253@hotmail.com"
 git config --global core.editor /usr/bin/vi
 git config --global push.default simple
-git config --global core.excludesfile $home_vagrant/.gitignore
+git config --global core.excludesfile $home_dir/.gitignore
 
 # generate ssh key
-ssh-keygen -t rsa -N "" -f $home_vagrant/.ssh/id_rsa
+ssh-keygen -t rsa -N "" -f $home_dir/.ssh/id_rsa
 
 # setup python env
 wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
@@ -59,10 +59,11 @@ python3 get-pip.py
 rm get-pip.py # cleanup
 
 # setup Google App Engine SDK
-#wget http://googleappengine.googlecode.com/files/google_appengine_1.8.9.zip
-#unzip google_app_engine_1.8.9.zip
+appengine=google_appengine_1.8.9
+#wget http://googleappengine.googlecode.com/files/${appengine}.zip
+#unzip ${appengine}.zip -d /vagrant
 # Add the SDK to PATH
-#echo "export PATH=\$PATH:/$PWD/google_appengine" >> $home_vagrant/.bashrc
+#echo "export PATH=\$PATH:/vagrant/google_appengine" >> $home_dir/.bashrc
 
 ## php stuff
 # config php settings (max upload, max size, other limits)
@@ -70,7 +71,7 @@ rm get-pip.py # cleanup
 # install Composer
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
-# mcrypt extension ini not included, buggy
+# mcrypt extension ini not included, this is a known bug
 ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/cli/conf.d/mcrypt.ini
 ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/apache2/conf.d/mcrypt.ini
 # Start blank projects for various frameworks
@@ -99,7 +100,6 @@ tar -xvzf ${drupal}.tar.gz -C /vagrant
 mv /vagrant/$drupal /vagrant/drupal
 cd /vagrant/drupal/sites/default
 cp default.settings.php settings.php # make default drupal settings file
-
 
 # Fetch apache2 conf from pearpenguin
 cp $pearpenguin/etc/apache2/sites-available/all.conf /etc/apache2/sites-available/all.conf
