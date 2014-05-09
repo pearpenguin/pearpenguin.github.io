@@ -13,9 +13,9 @@ vim (proper):
     
     sudo apt-get install vim
 
-screen:
+tmux:
 
-    sudo apt-get install screen
+    sudo apt-get install tmux
 
 python-dev libs for various installs (e.g. mercurial):
     

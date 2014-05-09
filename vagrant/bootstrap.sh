@@ -19,7 +19,7 @@ apt-get update
 # get packages (some may not be needed for different guest OSes)
 apt-get -y install curl
 apt-get -y install vim
-apt-get -y install screen
+apt-get -y install tmux
 apt-get -y install python-dev # for pip install mercurial
 apt-get -y install git
 apt-get -y install exuberant-ctags
