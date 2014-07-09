@@ -17,6 +17,10 @@ tmux:
 
     sudo apt-get install tmux
 
+colordiff:
+
+    sudo apt-get install colordiff
+    
 python-dev libs for various installs (e.g. mercurial):
     
     sudo apt-get install python-dev
