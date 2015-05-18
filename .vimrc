@@ -1,3 +1,6 @@
+"Show relative line numbers
+set relativenumber
+
 "Soft tabs (spaces) need all 3 options below
 set expandtab
 set shiftwidth=4
