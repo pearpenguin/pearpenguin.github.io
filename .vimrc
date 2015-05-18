@@ -1,5 +1,5 @@
-"Show relative line numbers
-set relativenumber
+"Show line numbers
+set number
 
 "Soft tabs (spaces) need all 3 options below
 set expandtab
