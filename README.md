@@ -1,6 +1,10 @@
 ## Environment setup
 
 ### Linux misc/utils
+Disable terminal flow control
+
+    stty -ixon
+    
 X11 clipboard: 
 
     sudo apt-get install xclip
