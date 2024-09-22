@@ -44,6 +44,7 @@ add_peer () {
     # Need to input the public IP
     PUBLIC_HOST=$1
     PEER_IP=$2
+    DNS_IP=`resolvectl dns enX0`
 
     # For generating QR code for mobile WG clients
     apt-get -y install qrencode
@@ -71,7 +72,7 @@ PrivateKey = $PEER_PRIVATE_KEY
 Address = $PEER_IP/24
 ListenPort = 33333
 
-# Resolve DNS via wg to avoid DNS leak
+# Resolve DNS via wg server to avoid DNS leak
 DNS = $DNS_IP
 
 [Peer]
@@ -91,10 +92,9 @@ EOF
 if [ "$1" == "server" ]; then
 setup_server
 elif [ "$1" == "peer" ]; then
-add_peer $2 $3 $4
+add_peer $2 $3
 else
 echo "Usage:"
 echo "setup-ubuntu.sh server"
 echo "setup-ubuntu.sh peer <public_host> <peer_ip> <dns_ip>"
-echo "Run 'resolvectl dns <if>' to find the DNS IP the server is using"
 fi
