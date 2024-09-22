@@ -70,8 +70,9 @@ EOF
 PrivateKey = $PEER_PRIVATE_KEY
 Address = $PEER_IP/24
 ListenPort = 33333
-# Need to install resolvconf on client to route DNS requests through server as well
-# DNS = 8.8.8.8
+
+# Resolve DNS via wg to avoid DNS leak
+DNS = $DNS_IP
 
 [Peer]
 PublicKey = $SERVER_PUBLIC_KEY
@@ -90,9 +91,10 @@ EOF
 if [ "$1" == "server" ]; then
 setup_server
 elif [ "$1" == "peer" ]; then
-add_peer $2 $3
+add_peer $2 $3 $4
 else
 echo "Usage:"
 echo "setup-ubuntu.sh server"
-echo "setup-ubuntu.sh peer <public_host> <peer_ip>"
+echo "setup-ubuntu.sh peer <public_host> <peer_ip> <dns_ip>"
+echo "Run 'resolvectl dns <if>' to find the DNS IP the server is using"
 fi
